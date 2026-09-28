@@ -1,0 +1,73 @@
+### Maven ###
+target/
+.mvn/wrapper/maven-wrapper.jar
+/.mvn/wrapper/maven-wrapper.properties
+/mvnw.cmd
+/mvnw
+!**/src/main/**/target/
+!**/src/test/**/target/
+
+### Java ###
+.mtj.tmp/
+*.class
+hs_err_pid*
+replay_pid*
+
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+
+### IntelliJ IDEA ###
+.idea
+.idea_modules
+*.iws
+*.iml
+*.ipr
+out/
+
+### NetBeans ###
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+build/
+!**/src/main/**/build/
+!**/src/test/**/build/
+
+### VS Code ###
+.vscode/
+
+### Env ###
+.env
+.env.production
+
+### Log files ###
+jxl.log
+jmx.log
+derby.log
+
+### OS Files ###
+.DS_Store
+Thumbs.db
+Desktop.ini
+.svn
+._*
+
+### Python ###
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.venv/
+venv/
+instance/
+reports/
+.pip-audit-cache/
+.coverage
+htmlcov/

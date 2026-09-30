@@ -36,12 +36,13 @@ jobs:
       - name: Run Bandit SAST
         run: bandit -r app -c pyproject.toml -f html -o reports/bandit.html
 
+      - name: Set up Snyk CLI
+        uses: snyk/actions/setup@master
+
       - name: Run Snyk SCA
-        uses: snyk/actions/python@master
+        run: snyk test --file=requirements.txt --package-manager=pip --json-file-output=reports/snyk.json
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
-        with:
-          args: --file=requirements.txt --package-manager=pip --json-file-output=reports/snyk.json
 
       - name: Upload security reports
         if: always()

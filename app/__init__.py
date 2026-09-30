@@ -1,22 +1,18 @@
 import os
-import secrets
 
-from dotenv import load_dotenv
 from flask import Flask, jsonify
 
 from app.extensions import db
 
 
 def create_app(test_config: dict | None = None) -> Flask:
-    load_dotenv()
-
     app = Flask(__name__, instance_relative_config=True)
     app.config.from_mapping(
         SQLALCHEMY_DATABASE_URI=os.getenv(
             "DATABASE_URL", "sqlite:///infosec.db"
         ),
         SQLALCHEMY_TRACK_MODIFICATIONS=False,
-        JWT_SECRET=os.getenv("JWT_SECRET") or secrets.token_urlsafe(32),
+        JWT_SECRET=os.getenv("JWT_SECRET"),
         JWT_EXPIRATION_SECONDS=int(os.getenv("JWT_EXPIRATION_SECONDS", "3600")),
         SEED_DATA=True,
     )

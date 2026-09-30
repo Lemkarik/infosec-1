@@ -1,9 +1,9 @@
 from datetime import datetime, timedelta, timezone
 from functools import wraps
-from html import escape
 
 import jwt
 from flask import current_app, g, jsonify, request
+from markupsafe import escape
 
 
 def create_token(login: str) -> str:
@@ -17,7 +17,7 @@ def create_token(login: str) -> str:
     return jwt.encode(payload, current_app.config["JWT_SECRET"], algorithm="HS256")
 
 
-def jwt_required(view):
+def  jwt_required(view):
     @wraps(view)
     def wrapped(*args, **kwargs):
         authorization = request.headers.get("Authorization", "")
@@ -44,5 +44,5 @@ def jwt_required(view):
 
 
 def sanitize(value: str) -> str:
-    """Escape untrusted strings before returning them in an API response."""
-    return escape(value, quote=True)
+    """Escape untrusted text with Flask/Jinja's HTML-safety implementation."""
+    return str(escape(value))

@@ -41,13 +41,15 @@ Windows PowerShell:
 ```powershell
 .venv\Scripts\Activate.ps1
 python -m pip install -r requirements-dev.txt
-Copy-Item .env.example .env
+$env:JWT_SECRET = python -c "import secrets; print(secrets.token_urlsafe(32))"
+$env:JWT_EXPIRATION_SECONDS = "3600"
 python run.py
 ```
 
-Перед запуском замените `JWT_SECRET` в `.env` случайным значением. API будет
-доступен на `http://127.0.0.1:8080`. База SQLite автоматически создаётся в
-`instance/infosec.db`.
+`JWT_SECRET` передаётся приложению через переменную окружения и не хранится в
+файлах проекта. Для постоянного развёртывания задайте его через менеджер секретов
+платформы. API будет доступен на `http://127.0.0.1:8080`. База SQLite
+автоматически создаётся в `instance/infosec.db`.
 
 ## Проверка через curl
 
@@ -72,9 +74,10 @@ curl http://127.0.0.1:8080/api/data \
 
 - SQL-инъекции: все обращения к БД выполняются через ORM SQLAlchemy и
   параметризованные выражения, SQL не собирается конкатенацией строк.
-- XSS: строки из БД экранируются функцией `html.escape` перед JSON-ответом;
+- XSS: строки из БД экранируются функцией `markupsafe.escape`, используемой Flask/Jinja, перед JSON-ответом;
   также API отправляет защитные HTTP-заголовки.
 - Broken Authentication: пароли хранятся только как bcrypt-хэши с солью;
+  секрет подписи JWT передаётся через переменную окружения и не хранится в репозитории;
   после входа выдаётся подписанный JWT с ограниченным временем жизни;
   middleware `jwt_required` проверяет схему Bearer, подпись, алгоритм и срок
   действия JWT на защищённом endpoint.

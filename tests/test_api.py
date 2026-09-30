@@ -59,7 +59,7 @@ def test_response_escapes_xss(app, client, token):
         "/api/data", headers={"Authorization": f"Bearer {token}"}
     )
     assert response.get_json()[0]["data"] == (
-        "&lt;script&gt;alert(&quot;xss&quot;)&lt;/script&gt;"
+        "&lt;script&gt;alert(&#34;xss&#34;)&lt;/script&gt;"
     )
 
 

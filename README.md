@@ -89,19 +89,25 @@ curl http://127.0.0.1:8080/api/data \
 ```bash
 pytest
 bandit -r app -c pyproject.toml
-pip-audit -r requirements.txt
+snyk test --file=requirements.txt --package-manager=pip
 ```
+
+Для локального запуска последней команды требуется установленный и
+аутентифицированный Snyk CLI. В GitHub Actions CLI предоставляет официальный
+`snyk/actions/python`, поэтому устанавливать Snyk в Python-зависимости не нужно.
 
 Тесты проверяют регистрацию, bcrypt-хэш, вход, запрет доступа без JWT,
 доступ с JWT, экранирование XSS и невозможность обойти вход SQL-инъекцией.
 
-GitHub Actions запускает тесты, SAST (`bandit`) и SCA (`pip-audit`) при каждом
+GitHub Actions запускает тесты, SAST (`bandit`) и SCA (`Snyk`) при каждом
 `push` и `pull_request`. Отчёты сохраняются как артефакт `security-reports`;
 их можно скачать со страницы завершённого workflow и использовать для
 скриншотов отчёта.
 
+Для SCA создайте API-токен в Snyk и добавьте его в настройках GitHub-репозитория:
+`Settings` → `Secrets and variables` → `Actions` → `New repository secret`.
+Имя секрета должно быть `SNYK_TOKEN`. Сам токен не добавляется в файлы проекта.
+
 Актуальные результаты локального запуска:
 
 ![Bandit SAST report](docs/img/bandit.png)
-
-![pip-audit SCA report](docs/img/pip-audit.png)

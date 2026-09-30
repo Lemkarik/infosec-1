@@ -36,8 +36,12 @@ jobs:
       - name: Run Bandit SAST
         run: bandit -r app -c pyproject.toml -f html -o reports/bandit.html
 
-      - name: Run pip-audit SCA
-        run: pip-audit --cache-dir .pip-audit-cache --requirement requirements.txt --format json --output reports/pip-audit.json
+      - name: Run Snyk SCA
+        uses: snyk/actions/python@master
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        with:
+          args: --file=requirements.txt --package-manager=pip --json-file-output=reports/snyk.json
 
       - name: Upload security reports
         if: always()

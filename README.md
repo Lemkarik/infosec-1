@@ -73,3 +73,8 @@ python run.py
 ## Скриншоты отчётов
 
 ![Bandit SAST report](docs/img/bandit.png)
+
+## Отчёты последнего запуска CI
+
+- [Bandit SAST — HTML-отчёт](reports/bandit.html)
+- [Snyk SCA — JSON-отчёт](reports/snyk.json)

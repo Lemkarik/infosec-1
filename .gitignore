@@ -67,7 +67,9 @@ __pycache__/
 .venv/
 venv/
 instance/
-reports/
+reports/*
+!reports/bandit.html
+!reports/snyk.json
 .pip-audit-cache/
 .coverage
 htmlcov/

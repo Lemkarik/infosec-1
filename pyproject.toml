@@ -5,5 +5,5 @@ addopts = "-q"
 
 [tool.bandit]
 exclude_dirs = ["tests", ".venv"]
-severity = "medium"
-confidence = "medium"
+severity = "low"
+confidence = "low"

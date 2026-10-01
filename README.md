@@ -72,7 +72,8 @@ python run.py
 
 ## Скриншоты отчётов
 
-![Bandit SAST report](docs/img/bandit.png)
+![Bandit report](docs/img/bandit.png)
+![Snyk report](reports/img_1.png)
 
 ## Отчёты последнего запуска CI
 

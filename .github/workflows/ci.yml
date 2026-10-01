@@ -34,7 +34,7 @@ jobs:
         run: mkdir -p reports
 
       - name: Run Bandit SAST
-        run: bandit -r app -c pyproject.toml -f html -o reports/bandit.html
+        run: bandit -r app -c pyproject.toml
 
       - name: Set up Snyk CLI
         uses: snyk/actions/setup@master

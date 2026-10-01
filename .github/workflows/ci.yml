@@ -44,6 +44,12 @@ jobs:
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
 
+      - name: Publish Snyk project snapshot
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        run: snyk monitor --file=requirements.txt --package-manager=pip --project-name=infosec-1
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+
       - name: Upload security reports
         if: always()
         uses: actions/upload-artifact@v7
